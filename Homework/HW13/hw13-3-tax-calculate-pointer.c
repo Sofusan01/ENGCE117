@@ -1,29 +1,47 @@
 #include <stdio.h>
+#include <inttypes.h>
 
 int main() {
-    int monthSalary = 0;
-    int yearSalary = 0;
-    char name[100];
+    double totalSalaryPerMonth = 0;
+    double totalSalaryPerYear = 0;
+
+    char MostTaxEmployee[50];
+    double highestTax = 0;
+    double annualTax;
+    
+    int i = 0;
+    setlocale(LC_NUMERIC, "en_US");
 
     while (1) {
-        int salary;
-        int i = 1;
-
-        printf(" Employee %d's Name :",i++);
-        scanf("%s", &name);
-        printf(" Salary (Bath/Month) :");
-        scanf("%d", &salary);
-        i += 1;
+        char name[50];
+        double salary, taxRate = 0.07;
+        i++;
         
-        if (salary == -1) {
-            printf("Exiting the program.\n");
-            printf("Total salary for the month: %d\n", monthSalary);
-            printf("Total salary for the month: %d\n", yearSalary);
+        printf("Employee %d's Name : (or -1 to exit): " ,i);
+        scanf("%s", name);
+
+        if (strcmp(name, "-1") == 0) {
             break;
         }
 
-        monthSalary += salary;
-        yearSalary = monthSalary*12;
+        printf("Salary (Bath/Month) :");
+        scanf("%lf", &salary);
+
+        totalSalaryPerMonth += salary;
+        totalSalaryPerYear += salary * 12;
+        annualTax = totalSalaryPerYear * taxRate;
+        double Tax = (salary * 12) * taxRate;
+
+        if (Tax > highestTax) {
+            highestTax = Tax;
+            strcpy(MostTaxEmployee, name);
+        }
+
     }
+
+    printf("All salary per month: %.2lf\n", totalSalaryPerMonth);
+    printf("All salary per year: %.2lf\n", totalSalaryPerYear);
+    printf("Tax (7%% per year) : %.2lf\n", annualTax);
+    printf("Most tax in company : %s (%'.2lf Bath per year)", MostTaxEmployee,highestTax);
 
 }
