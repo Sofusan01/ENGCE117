@@ -1,21 +1,19 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int *GetSet(int *num);
 
 int main() {
 
-    int *data, member;
+    int *data,num;
     
-    data = GetSet(&member);
+    data = GetSet(&num);
 
     printf("Elements in the array:\n");
 
-    for (int i = 0; i < member; i++) {
+    for (int i = 0; i < num; i++) {
         printf("%d ", data[i]);
     }
 
-    free(data);
 
     return 0;
 }
@@ -26,7 +24,7 @@ int *GetSet(int *num) {
     printf("How many number? :");
     scanf("%d", num);
 
-    n = (int*)malloc(*num * sizeof(int));
+    n = new int(*num);
 
     for (int i = 0; i < *num; i++)
     {
