@@ -16,7 +16,7 @@ void GetSet(int **arr, int *num) {
     printf("Enter number of elements: ");
     scanf("%d", num);
 
-    *arr = (int *)malloc((*num) * sizeof(int));4
+    *arr = (int *)malloc((*num) * sizeof(int));
 
     for (int i = 0; i < *num; i++) {
         printf("Enter members: ");
