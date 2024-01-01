@@ -12,12 +12,12 @@ void upgrade( struct student child ) ;
 int main() {
 
     struct student aboy ;
-    aboy.sex = 'F' ;
+    aboy.sex = 'M' ;
     aboy.gpa = 3.00 ;
     
     upgrade ( aboy ) ;
     
-    printf( "%.2f" , aboy.gpa ) ;
+    // printf( "%.2f" , aboy.gpa ) ;
 
     return 0 ;
 }
