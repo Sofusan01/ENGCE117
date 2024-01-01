@@ -2,26 +2,27 @@
     #include <stdio.h>
 
     struct student {
-        char name[ 20 ] ;
+        char name [ 20 ] ;
         int age ;
         char sex ;
         float gpa ;
     } ;
 
 
-    void GetStudent( struct student child[][ 2 ], int *room ) ;
+    void GetStudent ( struct student child [ ] [ 2 ] , int * room ) ;
 
-    int main() {
-        struct student children[ 20 ][ 2 ] ;
+    int main () {
+        struct student children [ 20 ] [ 2 ] ;
         int group ;
-        GetStudent( children, &group ) ;
+        GetStudent ( children, &group ) ;
         return 0 ;
-    }//end function
+
+        
 
     void GetStudent( struct student child[][ 2 ], int *room ){
         
-    printf("Enter the number of groups: ");
-    scanf("%d", room);
+    printf( "Enter the number of groups: ");
+    scanf( "%d" , room );
 
     for (int i = 0; i < *room; i++) {
 
