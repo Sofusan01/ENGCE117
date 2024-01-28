@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/sofu/Documents/GitHub/ENGCE117",
-      "program": "c:/Users/sofu/Documents/GitHub/ENGCE117/build/Debug/outDebug",
+      "cwd": "c:/Users/sofu/Documents/GitHub/ENGCE117/Lab_5",
+      "program": "c:/Users/sofu/Documents/GitHub/ENGCE117/Lab_5/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

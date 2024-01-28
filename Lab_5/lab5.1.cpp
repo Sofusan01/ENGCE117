@@ -1,95 +1,86 @@
-#include <stdio.h>
-#include <string.h>
+    #include <stdio.h>
+    #include <string.h>
 
-struct studentNode {
-    char name[20];
-    int age;
-    char sex;
-    float gpa;
-    struct studentNode *next;
-};
+    struct studentNode {
+        char name[20];
+        int age;
+        char sex;
+        float gpa;
+        struct studentNode *next;
+    };
+    
+    void showAll(struct studentNode *walk);
+    struct studentNode *AddNode(struct studentNode **walk, char name[], int age, char sex, float gpa);
+    void InsNode(struct studentNode **walk, char name[], int age, char sex, float gpa, struct studentNode **begin);
+    void DelNode(struct studentNode** walk, struct studentNode** begin);
 
-struct studentNode* addNode(struct studentNode **start, const char n[], int a, char s, float g);
-void insNode(struct studentNode *prev, const char n[], int a, char s, float g);
-void delNode(struct studentNode **start, struct studentNode *node);
-void showAll(struct studentNode *walk);
-
-int main() {
-    struct studentNode *start, *now;
-    start = NULL;
-    now = addNode(&start, "one", 6, 'M', 3.11);
-    showAll(start);
-
-    now = addNode(&start, "two", 8, 'F', 3.22);
-    showAll(start);
-
-    insNode(now, "three", 10, 'M', 3.33);
-    showAll(start);
-
-    insNode(now, "four", 12, 'F', 3.44);
-    showAll(start);
-
-    delNode(&start, now);
-    showAll(start);
-
-    return 0;
-}
-
-struct studentNode* addNode(struct studentNode **start, const char n[], int a, char s, float g) {
-    struct studentNode *newNode = new struct studentNode;
-    strcpy(newNode->name, n);
-    newNode->age = a;
-    newNode->sex = s;
-    newNode->gpa = g;
-    newNode->next = *start;
-    *start = newNode;
-    return newNode;
-}
-
-void insNode(struct studentNode *prev, const char n[], int a, char s, float g) {
-    if (prev == NULL) {
-        printf("Error: Cannot insert node after NULL.\n");
-        return;
+    int main() {
+        
+        struct studentNode *start, *now;
+        start = NULL;
+        now = AddNode(&start, "one", 6, 'M', 3.11);		showAll(start);
+        now = AddNode(&start, "two", 8, 'F', 3.22);		showAll(start);
+        InsNode(&now, "three", 10, 'M', 3.33, &start);	showAll(start);
+        InsNode(&now, "four", 12, 'F', 3.44, &start);	showAll(start);
+        DelNode(&now, &start);	showAll(start);
+        return 0;
+        
+    }
+    void showAll(struct studentNode *walk) {
+        while (walk != NULL) {
+            printf("%s ", walk->name);
+            walk = walk->next;
+        }
+        printf("\n");
     }
 
-    struct studentNode *newNode = new struct studentNode;
-    strcpy(newNode->name, n);
-    newNode->age = a;
-    newNode->sex = s;
-    newNode->gpa = g;
-    newNode->next = prev->next;
-    prev->next = newNode;
-}
-
-void delNode(struct studentNode **start, struct studentNode *node) {
-    if (*start == NULL || node == NULL) {
-        printf("Error: Cannot delete NULL node.\n");
-        return;
+    struct studentNode *AddNode(struct studentNode **walk, char name[], int age, char sex, float gpa) {
+        while( *walk != NULL){
+            walk = &(*walk)->next;
+        }
+        *walk = new struct studentNode;
+        strcpy((*walk)->name, name);
+        (*walk)->age = age;
+        (*walk)->sex = sex;
+        (*walk)->gpa = gpa;
+        (*walk)->next = NULL;
+        return *walk;
     }
 
-    if (node == *start) {
-        *start = (*start)->next;
-        delete node;
-        return;
+    void InsNode(struct studentNode **walk, char name[], int age, char sex, float gpa, struct studentNode **begin) {
+        if( walk != NULL ){
+        struct studentNode *temp = new struct studentNode;
+        strcpy(temp->name, name);
+        temp->age = age;
+        temp->sex = sex;
+        temp->gpa = gpa;
+        temp->next = (*walk)->next;
+        (*walk)->next = temp;
+        }
+        else{
+        *begin = new struct studentNode;
+        strcpy((*begin)->name, name);
+        (*begin)->age = age;
+        (*begin)->sex = sex;
+        (*begin)->gpa = gpa;
+        (*begin)->next = *walk;
+        *walk = *begin;
+        }
+
     }
 
-    struct studentNode *prev = *start;
-    while (prev != NULL && prev->next != node) {
-        prev = prev->next;
-    }
+    void DelNode(struct studentNode** walk, struct studentNode** begin) {
+        if (*walk == NULL || *begin == NULL) {
+            // If either the node to be deleted or the beginning of the list is NULL, nothing to delete
+            return;
+        }
 
-    if (prev != NULL) {
-        prev->next = node->next;
-        delete node;
-    } else {
-        printf("Error: Node not found.\n");
-    }
-}
+        if (*walk == *begin) {
+            // If the node to be deleted is the first node, update the beginning of the list
+            *begin = (*walk)->next;
+        }
 
-void showAll(struct studentNode *walk) {
-    while (walk != NULL) {
-        printf("%s ", walk->name);
-        walk = walk->next;
+        struct studentNode* temp = (*walk)->next;
+        delete *walk;
+        *walk = temp;
     }
-    printf("\n");
-}

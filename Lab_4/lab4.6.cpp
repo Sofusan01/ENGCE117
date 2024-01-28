@@ -32,14 +32,6 @@ int main() {
     goNext2(&now2);
     printf("%s ", (*now2)->name);
 
-    // Free allocated memory
-    struct studentNode *current = start;
-    while (current != nullptr) {
-        struct studentNode *temp = current;
-        current = current->next;
-        delete temp;
-    }
-
     return 0;
 }
 
@@ -51,7 +43,10 @@ void saveNode(struct studentNode *child, const char n[], int a, char s, float g)
 }
 
 void goNext2(struct studentNode ***walk) {
-    if (*walk != nullptr && (*walk)->next != nullptr) {
-        *walk = &((*walk)->next);
+    while (**walk != NULL) {
+        printf( "Name: %s Age: %d Sex: %c GPA: %.2f \n", 
+        (**walk)->name , (**walk)->age , (**walk)->sex , (**walk)->gpa ) ;
+
+        **walk = (**walk)->next ;
     }
 }
